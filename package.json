@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/choccy/choccbot/issues"
   },
-  "homepage": "https://github.com/choccy/choccbot#readme"
+  "homepage": "https://github.com/choccy/choccbot#readme",
+  "dependencies": {
+    "dirty": "^1.1.0",
+    "streamlabs-socket-client": "0.0.4",
+    "tmi.js": "github:choccy/tmi.js",
+    "twitch-api-v5": "^2.0.4"
+  }
 }
