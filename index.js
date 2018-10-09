@@ -3,7 +3,7 @@ var StreamlabsSocketClient = require('streamlabs-socket-client');
 var api = require('twitch-api-v5');
 var dirty = require('dirty');
 var dbCommands = dirty('commands.db');
-var settings = require('config.js')
+var settings = require('./config.js')
 
 var SLclient = new StreamlabsSocketClient({
   token: settings.STREAMLABS_SOCKET_TOKEN,
@@ -171,16 +171,6 @@ bot.on("chat", function (channel, userstate, message, self) {
 
     if (dbCommands.get(commands[0])) {
       bot.action(settings.CHANNEL, dbCommands.get(commands[0]))
-    }
-  }
-
-  if (mediaRegex.test(message)) {
-    var messageUrls = Array.from(getUrls(message))
-    if (messageUrls) {
-      messageUrls.forEach(function (url){
-        var source = url.match(mediaRegex)
-        mediaDetails(url, source[0])
-      })
     }
   }
 });
