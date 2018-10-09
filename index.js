@@ -5,6 +5,8 @@ var dirty = require('dirty');
 var dbCommands = dirty('commands.db');
 var settings = require('./config.js')
 
+settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
+
 var SLclient = new StreamlabsSocketClient({
   token: settings.STREAMLABS_SOCKET_TOKEN,
   emitTests: true // true if you want alerts triggered by the test buttons on the streamlabs dashboard to be emitted. default false.
