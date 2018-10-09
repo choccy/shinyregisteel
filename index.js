@@ -4,6 +4,7 @@ var api = require('twitch-api-v5');
 var dirty = require('dirty');
 var dbCommands = dirty('commands.db');
 var settings = require('./config.js')
+var request = require("request");
 
 settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
 
@@ -144,6 +145,20 @@ var inbuilt_commands = {
     })
   },
 
+  "!maltesers": function (commands, userstate) {
+    request({ method: 'GET',
+      url: 'https://streamlabs.com/api/v1.0/points',
+      qs: {
+        access_token: settings.STREAMLABS_ACCESS_TOKEN,
+        username: commands[0] || userstate.username,
+        channel: settings.CHANNEL } },
+      function (err, res, body) {
+        body = JSON.parse(body)
+        if (err) throw new Error(err);
+        bot.action(settings.CHANNEL, body.username + " has " + body.points + " maltesers!")
+     })
+  },
+
   "!commands": function(commands) {
     var data = Object.keys(inbuilt_commands)
     dbCommands.forEach(function (key) {
@@ -153,12 +168,24 @@ var inbuilt_commands = {
   }
 }
 
+SLclient.on('follow', function (data) {
+  bot.action(settings.CHANNEL, " Thank you " + data.name + " for following! <3")
+});
+
 owner.on("hosted", function (channel, username, viewers, autohost) {
   bot.action(settings.CHANNEL, "Thank you "  + username + " for the host!");
 });
 
 bot.on("cheer", function (channel, userstate, message) {
   bot.action(settings.CHANNEL, "Thank you " + userstate.username + " for the " + userstate.bits + "bits!!! PogChamp" );
+});
+
+bot.on("subscription", function (channel, username) {
+    bot.action(settings.CHANNEL, "Thank you "  + username + " for subscribing! <3 <3");
+});
+
+bot.on("resub", function (channel, username, months, message, userstate, methods) {
+    bot.action(settings.CHANNEL, "Thank you "  + username + " for the " + months + " month resub! <3 <3");
 });
 
 bot.on("chat", function (channel, userstate, message, self) {

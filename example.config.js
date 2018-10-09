@@ -5,5 +5,6 @@ module.exports = {
   CLIENTID:'', // you client ID
   BOT_OAUTH:'', // use https://twitchapps.com/tokengen/
   OWNER_OAUTH:'', // use https://twitchapps.com/tmi/
-  STREAMLABS_SOCKET_TOKEN:'' // get from https://streamlabs.com/dashboard#/apisettings
+  STREAMLABS_SOCKET_TOKEN:'', // get from https://streamlabs.com/dashboard#/apisettings
+  STREAMLABS_ACCESS_TOKEN: '' // i dont even
 }
