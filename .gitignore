@@ -1,5 +1,5 @@
 config.js
-
+commands.db
 # Logs
 logs
 *.log
