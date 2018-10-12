@@ -153,9 +153,13 @@ var inbuilt_commands = {
         username: commands[0] || userstate.username,
         channel: settings.CHANNEL } },
       function (err, res, body) {
+        if (err) bot.action(settings.CHANNEL, err.toString())
         body = JSON.parse(body)
-        if (err) throw new Error(err);
-        bot.action(settings.CHANNEL, body.username + " has " + body.points + " maltesers!")
+        if (body.error) {
+          bot.action(settings.CHANNEL, body.message)
+        } else {
+          bot.action(settings.CHANNEL, body.username + " has " + body.points + " maltesers!")
+        }
      })
   },
 
