@@ -9,8 +9,23 @@ var request = require("request");
 settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
 
 var SLclient = new StreamlabsSocketClient({
-  token: settings.STREAMLABS_SOCKET_TOKEN,
-  emitTests: true // true if you want alerts triggered by the test buttons on the streamlabs dashboard to be emitted. default false.
+  emitTests: true,
+  token,
+  rawEvents,
+});
+
+[
+  ...rawEvents,
+  'follow',
+  'subscription',
+  'resubscription',
+  'bits',
+  'host',
+  'donation',
+].forEach((eventName) => {
+  client.on(eventName, (...data) => {
+    if (vars.SLDEBUG === 'on') console.log(eventName, JSON.stringify(data)); // eslint-disable-line
+  });
 });
 
 function uptime(startTime) {
@@ -57,8 +72,10 @@ owner.connect();
 SLclient.connect();
 
 api.clientID = settings.CLIENTID;
+var vars = Object.create(null)
+var inbuilt_commands = Object.create(null)
 
-var inbuilt_commands = {
+inbuilt_commands = {
   "!addcom": function (commands, userstate) {
     if (userstate.mod || userstate.badges.broadcaster === '1') {
       if (commands[0][0] !== "!") {
@@ -163,6 +180,12 @@ var inbuilt_commands = {
      })
   },
 
+  "!var": function(commands, userstate) {
+    if (userstate.mod || userstate.badges.broadcaster === '1') {
+      vars[commands[0]] = commands[1]
+    }
+  },
+
   "!commands": function(commands) {
     var data = Object.keys(inbuilt_commands)
     dbCommands.forEach(function (key) {
@@ -173,7 +196,7 @@ var inbuilt_commands = {
 }
 
 SLclient.on('follow', function (data) {
-  bot.action(settings.CHANNEL, " Thank you " + data.name + " for following! <3")
+  if (vars.SLDEBUG === 'off') bot.action(settings.CHANNEL, " Thank you " + data.name + " for following! <3")
 });
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
