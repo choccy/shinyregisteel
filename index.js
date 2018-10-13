@@ -174,7 +174,7 @@ inbuilt_commands = {
 }
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
-  bot.action(settings.CHANNEL, "Thank you "  + username + " for the host!");
+  if (!autohost) bot.action(settings.CHANNEL, "Thank you "  + username + " for the host!");
 });
 
 bot.on("cheer", function (channel, userstate, message) {
@@ -188,6 +188,10 @@ bot.on("subscription", function (channel, username) {
 bot.on("resub", function (channel, username, months, message, userstate, methods) {
     bot.action(settings.CHANNEL, "Thank you "  + username + " for the " + months + " month resub! <3 <3");
 });
+
+bot.on("subgift", function (channel, username, recipient, plan, userstate) {
+  bot.action(settings.CHANNEL, "Thank you "  + username + " for gifting a sub to " + recipient + "! <3 <3");
+})
 
 bot.on("chat", function (channel, userstate, message, self) {
   if (self) return;
