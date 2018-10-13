@@ -10,7 +10,7 @@ settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
 
 var SLclient = new StreamlabsSocketClient({
   emitTests: true,
-  token,
+  STREAMLABS_SOCKET_TOKEN,
   rawEvents,
 });
 
