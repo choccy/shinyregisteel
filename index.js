@@ -1,5 +1,4 @@
 var tmi = require('tmi.js');
-var StreamlabsSocketClient = require('streamlabs-socket-client');
 var api = require('twitch-api-v5');
 var dirty = require('dirty');
 var dbCommands = dirty('commands.db');
@@ -7,26 +6,6 @@ var settings = require('./config.js')
 var request = require("request");
 
 settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
-
-var SLclient = new StreamlabsSocketClient({
-  emitTests: true,
-  STREAMLABS_SOCKET_TOKEN,
-  rawEvents,
-});
-
-[
-  ...rawEvents,
-  'follow',
-  'subscription',
-  'resubscription',
-  'bits',
-  'host',
-  'donation',
-].forEach((eventName) => {
-  client.on(eventName, (...data) => {
-    if (vars.SLDEBUG === 'on') console.log(eventName, JSON.stringify(data)); // eslint-disable-line
-  });
-});
 
 function uptime(startTime) {
   var created_at = new Date(startTime);
@@ -69,7 +48,6 @@ var owner = new tmi.client({
 
 bot.connect();
 owner.connect();
-SLclient.connect();
 
 api.clientID = settings.CLIENTID;
 var vars = Object.create(null)
@@ -194,10 +172,6 @@ inbuilt_commands = {
     bot.action(settings.CHANNEL, data.join(" "))
   }
 }
-
-SLclient.on('follow', function (data) {
-  if (vars.SLDEBUG === 'off') bot.action(settings.CHANNEL, " Thank you " + data.name + " for following! <3")
-});
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
   bot.action(settings.CHANNEL, "Thank you "  + username + " for the host!");
