@@ -50,7 +50,6 @@ bot.connect();
 owner.connect();
 
 api.clientID = settings.CLIENTID;
-var vars = Object.create(null)
 var inbuilt_commands = Object.create(null)
 
 inbuilt_commands = {
@@ -67,6 +66,16 @@ inbuilt_commands = {
         dbCommands.set(commands[0], output)
         bot.action(settings.CHANNEL, "The command " + commands[0] + " has been added.")
       }
+    }
+  },
+
+  "!editcom": function (commands, userstate) {
+    if (userstate.mod || userstate.badges.broadcaster === '1') {
+      dbCommands.update(commands[0], function (currentComand) {
+        return commands.splice(1).join(" ")
+      })
+
+      bot.action(settings.CHANNEL, "The command " + commands[0] + " has been edited.")
     }
   },
 
@@ -142,47 +151,6 @@ inbuilt_commands = {
 
   "!maltesers": function (commands, userstate) {
 
-    if (commands[0] === 'everyone') {
-      if (userstate.mod || userstate.badges.broadcaster === '1') {
-        request({ method: 'POST',
-          url: 'https://streamlabs.com/api/v1.0/points/add_to_all',
-          qs: {
-            access_token: settings.STREAMLABS_ACCESS_TOKEN,
-            value: commands[1],
-            channel: settings.CHANNEL }
-        }, function (err, res, body) {
-          if (err) bot.action(settings.CHANNEL, err.toString())
-          body = JSON.parse(body)
-          if (body.error) {
-            bot.action(settings.CHANNEL, body.message)
-          } else {
-            bot.action(settings.CHANNEL, "Everyone just got an extra "+commands[1]+" maltesers! ")
-          }
-        })
-      }
-    } else {
-      request({ method: 'GET',
-        url: 'https://streamlabs.com/api/v1.0/points',
-        qs: {
-          access_token: settings.STREAMLABS_ACCESS_TOKEN,
-          username: commands[0] || userstate.username,
-          channel: settings.CHANNEL }
-      }, function (err, res, body) {
-        if (err) bot.action(settings.CHANNEL, err.toString())
-        body = JSON.parse(body)
-        if (body.error) {
-          bot.action(settings.CHANNEL, body.message)
-        } else {
-          bot.action(settings.CHANNEL, body.username + " has " + body.points + " maltesers!")
-        }
-      })
-    }
-  },
-
-  "!var": function(commands, userstate) {
-    if (userstate.mod || userstate.badges.broadcaster === '1') {
-      vars[commands[0]] = commands[1]
-    }
   },
 
   "!commands": function(commands) {
