@@ -24,6 +24,8 @@ var SLclient = new StreamlabsSocketClient({
   emitTests: true // true if you want alerts triggered by the test buttons on the streamlabs dashboard to be emitted. default false.
 });
 
+var CHAT_LINE_COUNT = 0
+
 var bot = new tmi.client({
     options: {
         debug: false
@@ -234,7 +236,10 @@ SLclient.on('follow', function (data) {
 });
 
 setInterval(function () {
-  bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
+  if (CHAT_LINE_COUNT === 25) {
+    bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
+    CHAT_LINE_COUNT = 0
+  }
 }, 300000)
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
@@ -259,6 +264,8 @@ bot.on("subgift", function (channel, username, recipient, plan, userstate) {
 
 bot.on("chat", function (channel, userstate, message, self) {
   if (self) return;
+
+  CHAT_LINE_COUNT = CHAT_LINE_COUNT + 1
 
   if (message[0] === "!") {
     var commands = message.split(" ")
