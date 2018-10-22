@@ -233,14 +233,6 @@ SLclient.on('follow', function (data) {
 });
 
 setInterval(function () {
-  bot.action(settings.CHANNEL, "Follow me on Twitter: twitter.com/choccytv RoWOW")
-}, 600000)
-
-setInterval(function () {
-  bot.action(settings.CHANNEL, "If you are wondering what ErnStrn or KannaNom is, they are emotes that you can see if you install frankerfacez.com or enable FrankerFaceZ emotes in BTTV. OpieOP")
-}, 450000)
-
-setInterval(function () {
   bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
 }, 300000)
 
