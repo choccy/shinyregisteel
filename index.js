@@ -19,25 +19,6 @@ function uptime(startTime) {
   return hours + " hours " + minutes + " minutes and " + seconds + " seconds."
 }
 
-function interval(func, wait, times){
-    var interv = function(w, t){
-        return function(){
-            if(typeof t === "undefined" || t-- > 0){
-                setTimeout(interv, w);
-                try{
-                    func.call(null);
-                }
-                catch(e){
-                    t = 0;
-                    throw e.toString();
-                }
-            }
-        };
-    }(wait, times);
-
-    setTimeout(interv, wait);
-};
-
 var SLclient = new StreamlabsSocketClient({
   token: settings.STREAMLABS_SOCKET_TOKEN,
   emitTests: true // true if you want alerts triggered by the test buttons on the streamlabs dashboard to be emitted. default false.
@@ -251,15 +232,15 @@ SLclient.on('follow', function (data) {
   bot.action(settings.CHANNEL, " Thank you " + data.name + " for following. kannaSippyn <3")
 });
 
-interval(function () {
+setInterval(function () {
   bot.action(settings.CHANNEL, "Follow me on Twitter: twitter.com/choccytv RoWOW")
 }, 600000)
 
-interval(function () {
+setInterval(function () {
   bot.action(settings.CHANNEL, "If you are wondering what ErnStrn or KannaNom is, they are emotes that you can see if you install frankerfacez.com or enable FrankerFaceZ emotes in BTTV. OpieOP")
 }, 450000)
 
-interval(function () {
+setInterval(function () {
   bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
 }, 300000)
 
