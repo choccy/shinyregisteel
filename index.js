@@ -54,6 +54,7 @@ var owner = new tmi.client({
 
 bot.connect();
 owner.connect();
+SLclient.connect();
 
 api.clientID = settings.CLIENTID;
 var inbuilt_commands = Object.create(null)
