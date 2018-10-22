@@ -23,6 +23,7 @@
   "dependencies": {
     "dirty": "^1.1.0",
     "request": "^2.88.0",
+    "streamlabs-socket-client": "0.0.4",
     "tmi.js": "github:choccy/tmi.js",
     "twitch-api-v5": "^2.0.4"
   }
