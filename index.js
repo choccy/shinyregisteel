@@ -158,6 +158,12 @@ inbuilt_commands = {
     })
   },
 
+  "!so": function (commands, userstate) {
+    if (userstate.mod || userstate.username === settings.CHANNEL) {
+      bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + commands[0].toLowerCase() + " Pog")
+    }
+  },
+
   "!maltesers": function (commands, userstate) {
     if (commands[0] === 'everyone') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
