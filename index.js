@@ -160,8 +160,8 @@ inbuilt_commands = {
 
   "!so": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
-      var streamer = commands[0][0] === '@' ? commands[0]substr(1) : commands[0]
-      bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + commands[0].toLowerCase() + " Pog")
+      var streamer = commands[0][0] === '@' ? commands[0].substr(1).toLowerCase() : commands[0].toLowerCase()
+      bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + stramer + " Pog")
     }
   },
 
