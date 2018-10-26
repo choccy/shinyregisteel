@@ -66,15 +66,15 @@ inbuilt_commands = {
   "!addcom": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       if (commands[0][0] !== "!") {
-        bot.action(settings.CHANNEL, "The command name must start with a ! SHIREE");
+        bot.say(settings.CHANNEL, "The command name must start with a ! SHIREE");
         return;
       }
       var output = commands.splice(1).join(" ")
       if (output[0] === '!') {
-        bot.action(settings.CHANNEL, "The command output cannot start with a ! MahoHuh")
+        bot.say(settings.CHANNEL, "The command output cannot start with a ! MahoHuh")
       } else {
         dbCommands.set(commands[0], output)
-        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been added. FeelGood")
+        bot.say(settings.CHANNEL, "The command " + commands[0] + " has been added. FeelGood")
       }
     }
   },
@@ -85,7 +85,7 @@ inbuilt_commands = {
           return commands.splice(1).join(" ")
       })
 
-      bot.action(settings.CHANNEL, "The command " + commands[0] + " has been edited. HungryTag")
+      bot.say(settings.CHANNEL, "The command " + commands[0] + " has been edited. HungryTag")
     }
   },
 
@@ -93,7 +93,7 @@ inbuilt_commands = {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       dbCommands.rm(commands[0])
 
-      bot.action(settings.CHANNEL, "The command " + commands[0] + " has been deleted. HungryTag")
+      bot.say(settings.CHANNEL, "The command " + commands[0] + " has been deleted. HungryTag")
     }
   },
 
@@ -105,7 +105,7 @@ inbuilt_commands = {
             console.warn(err)
             return;
            } else {
-             bot.action(settings.CHANNEL, "Game has been updated to: " + commands.join(" ") + " KurisuFact")
+             bot.say(settings.CHANNEL, "Game has been updated to: " + commands.join(" ") + " KurisuFact")
            }
         })
       }
@@ -114,7 +114,7 @@ inbuilt_commands = {
         if (err) {
           console.warn(err)
         } else {
-          bot.action(settings.CHANNEL, "Game is currently set to: " + res.game + " KurisuFact")
+          bot.say(settings.CHANNEL, "Game is currently set to: " + res.game + " KurisuFact")
         }
       })
     }
@@ -128,7 +128,7 @@ inbuilt_commands = {
             console.warn(err)
             return;
           } else {
-            bot.action(settings.CHANNEL, "Title has been updated to: " + commands.join(" ") + " KurisuFact")
+            bot.say(settings.CHANNEL, "Title has been updated to: " + commands.join(" ") + " KurisuFact")
           }
         })
       }
@@ -138,7 +138,7 @@ inbuilt_commands = {
           console.warn(err)
           return;
         } else {
-          bot.action(settings.CHANNEL, "Title is currently set to: " + res.status + " KurisuFact")
+          bot.say(settings.CHANNEL, "Title is currently set to: " + res.status + " KurisuFact")
         }
       })
     }
@@ -151,9 +151,9 @@ inbuilt_commands = {
         return;
       } else {
         if (res.stream) {
-          bot.action(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at) + " Naruhodo")
+          bot.say(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at) + " Naruhodo")
         } else {
-          bot.action(settings.CHANNEL, "The stream is not live. cmonBruh")
+          bot.say(settings.CHANNEL, "The stream is not live. cmonBruh")
         }
       }
     })
@@ -162,7 +162,7 @@ inbuilt_commands = {
   "!shoutout": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       var streamer = commands[0][0] === '@' ? commands[0].substr(1).toLowerCase() : commands[0].toLowerCase()
-      bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + streamer + " Pog")
+      bot.say(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + streamer + " Pog")
     }
   },
 
@@ -181,9 +181,9 @@ inbuilt_commands = {
         }, function (error, response, body) {
           var res = JSON.parse(body)
           if (res.message === 'Success') {
-            bot.action(settings.CHANNEL, commands[1] + " maltesers for everyone! Daijoubu")
+            bot.say(settings.CHANNEL, commands[1] + " maltesers for everyone! Daijoubu")
           } else {
-            bot.action(settings.CHANNEL, "Something went wrong: " + res.error)
+            bot.say(settings.CHANNEL, "Something went wrong: " + res.error)
           }
         })
       }
@@ -198,12 +198,12 @@ inbuilt_commands = {
           username: commands[0] || userstate.username,
           channel: settings.CHANNEL } },
         function (err, res, body) {
-          if (err) bot.action(settings.CHANNEL, err.toString())
+          if (err) bot.say(settings.CHANNEL, err.toString())
           body = JSON.parse(body)
           if (body.error) {
-            bot.action(settings.CHANNEL, body.message)
+            bot.say(settings.CHANNEL, body.message)
           } else {
-            bot.action(settings.CHANNEL, body.username + " has " + body.points + " maltesers! KannaNom")
+            bot.say(settings.CHANNEL, body.username + " has " + body.points + " maltesers! KannaNom")
           }
       })
     }
@@ -220,11 +220,11 @@ inbuilt_commands = {
       }, function (error, response, body) {
         var res = JSON.parse(body)
         if (res.error) {
-          bot.action(settings.CHANNEL, "There was an error: "+ res.error)
+          bot.say(settings.CHANNEL, "There was an error: "+ res.error)
         }
 
         if (res.success) {
-          bot.action(settings.CHANNEL, "The cup has been emptied! KannaWOT")
+          bot.say(settings.CHANNEL, "The cup has been emptied! KannaWOT")
         }
       })
     }
@@ -246,7 +246,7 @@ inbuilt_commands = {
     dbCommands.forEach(function (key) {
       data.push(key)
     })
-    bot.action(settings.CHANNEL, data.join(" "))
+    bot.say(settings.CHANNEL, data.join(" "))
   }
 }
 
@@ -256,6 +256,10 @@ SLclient.on('follow', function (data) {
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
   if (!autohost) bot.action(settings.CHANNEL, "Thank you "  + username + " for the host! TaruTaru");
+});
+
+owner.on("raid", function (channel, raider, viewers, userstate) {
+  bot.action(settings.CHANNEL, "Pog INCOMING " + raider.toUpperCase() + " RAID Pog")
 });
 
 bot.on("cheer", function (channel, userstate, message) {
@@ -290,7 +294,7 @@ bot.on("chat", function (channel, userstate, message, self) {
     }
 
     if (dbCommands.get(commands[0])) {
-      bot.action(settings.CHANNEL, dbCommands.get(commands[0]))
+      bot.say(settings.CHANNEL, dbCommands.get(commands[0]))
     }
   }
 });
