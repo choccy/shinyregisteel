@@ -5,6 +5,8 @@ var dbCommands = dirty('commands.db');
 var settings = require('./config.js')
 var request = require('request')
 var StreamlabsSocketClient = require('streamlabs-socket-client');
+var NanoTimer = require('nanotimer');
+var timer = new NanoTimer();
 
 settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
 
@@ -253,12 +255,12 @@ SLclient.on('follow', function (data) {
   bot.action(settings.CHANNEL, " Thank you " + data.name + " for following. kannaSippyn <3")
 });
 
-setInterval(function () {
+timer.setInterval(function () {
   if (CHAT_LINE_COUNT === 25) {
     bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
     CHAT_LINE_COUNT = 0
   }
-}, 300000)
+}, '', '300s')
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
   if (!autohost) bot.action(settings.CHANNEL, "Thank you "  + username + " for the host! TaruTaru");
