@@ -5,8 +5,6 @@ var dbCommands = dirty('commands.db');
 var settings = require('./config.js')
 var request = require('request')
 var StreamlabsSocketClient = require('streamlabs-socket-client');
-var NanoTimer = require('nanotimer');
-var timer = new NanoTimer();
 
 settings.ACCESS = settings['OWNER_OAUTH'].split(":")[1]
 
@@ -26,7 +24,8 @@ var SLclient = new StreamlabsSocketClient({
   emitTests: true // true if you want alerts triggered by the test buttons on the streamlabs dashboard to be emitted. default false.
 });
 
-var CHAT_LINE_COUNT = 0
+var TIMER_COOLDOWN = Date.now()
+var TIMER_COOLDOWN_LENGTH = 1000 * 60 * 10;
 
 var bot = new tmi.client({
     options: {
@@ -160,7 +159,7 @@ inbuilt_commands = {
     })
   },
 
-  "!so": function (commands, userstate) {
+  "!shoutout": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       var streamer = commands[0][0] === '@' ? commands[0].substr(1).toLowerCase() : commands[0].toLowerCase()
       bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + streamer + " Pog")
@@ -255,13 +254,6 @@ SLclient.on('follow', function (data) {
   bot.action(settings.CHANNEL, " Thank you " + data.name + " for following. kannaSippyn <3")
 });
 
-timer.setInterval(function () {
-  if (CHAT_LINE_COUNT === 25) {
-    bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
-    CHAT_LINE_COUNT = 0
-  }
-}, '', '300s')
-
 owner.on("hosted", function (channel, username, viewers, autohost) {
   if (!autohost) bot.action(settings.CHANNEL, "Thank you "  + username + " for the host! TaruTaru");
 });
@@ -285,7 +277,10 @@ bot.on("subgift", function (channel, username, recipient, plan, userstate) {
 bot.on("chat", function (channel, userstate, message, self) {
   if (self) return;
 
-  CHAT_LINE_COUNT = CHAT_LINE_COUNT + 1
+  if (Date.now() - TIMER_COOLDOWN > TIMER_COOLDOWN_LENGTH) {
+    bot.action(settings.CHANNEL, "Did you know that every minute watched equals 5 maltesers? You can gamble them in the Streamlabs overlay AND redeem stuff there. OhIToot")
+    TIMER_COOLDOWN = Date.now()
+  }
 
   if (message[0] === "!") {
     var commands = message.split(" ")
