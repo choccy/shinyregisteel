@@ -229,6 +229,17 @@ inbuilt_commands = {
     }
   },
 
+  "!vanish": function (commands, userstate) {
+    if (userstate.mod) {
+      owner.timeout(settings.CHANNEL, userstate.username, 1);
+      setTimeout(function () {
+        owner.mod(settings.CHANNEL, userstate.username)
+      }, 100)
+    } else {
+      client.timeout(settings.CHANNEL, userstate.username, 1);
+    }
+  },
+
   "!commands": function(commands) {
     var data = Object.keys(inbuilt_commands)
     dbCommands.forEach(function (key) {
