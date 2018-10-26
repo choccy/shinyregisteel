@@ -238,7 +238,7 @@ inbuilt_commands = {
         owner.mod(settings.CHANNEL, userstate.username)
       }, 100)
     } else {
-      client.timeout(settings.CHANNEL, userstate.username, 1);
+      bot.timeout(settings.CHANNEL, userstate.username, 1);
     }
   },
 
