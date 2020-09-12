@@ -182,7 +182,7 @@ inbuilt_commands = {
           bot.say(settings.CHANNEL, (position + 1) + ": " + username);
         });
       } else {
-        bot.say(settings.CHANNEL, "Queue is currently empty! D:"
+        bot.say(settings.CHANNEL, "Queue is currently empty! D:");
       }
     };
 
