@@ -177,7 +177,7 @@ inbuilt_commands = {
     };
 
     if (commands[0] === 'list') {
-      if QUEUE[0] {
+      if (QUEUE[0]) {
         QUEUE.forEach(function (username, position) {
           bot.say(settings.CHANNEL, (position + 1) + ": " + username);
         });
