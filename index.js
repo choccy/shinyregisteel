@@ -290,8 +290,9 @@ owner.on("hosted", function (channel, username, viewers, autohost) {
 });
 
 owner.on("raided", function (channel, raider, viewers, userstate) {
+  var raiders = viewers - 1;
   var i;
-  for (i = 0; i <= 5; i++) {
+  for (i = 0; i <= raiders; i++) {
     bot.action(settings.CHANNEL, "Pog INCOMING " + raider.toUpperCase() + " RAID Pog");
   }
 });
