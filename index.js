@@ -289,7 +289,7 @@ owner.on("hosted", function (channel, username, viewers, autohost) {
   if (!autohost) bot.action(settings.CHANNEL, "Thank you @"  + username + " for the host! Daijoubu ");
 });
 
-owner.on("raid", function (channel, raider, viewers, userstate) {
+owner.on("raided", function (channel, raider, viewers, userstate) {
   var i;
   for (i = 0; i <= 5; i++) {
     bot.action(settings.CHANNEL, "Pog INCOMING " + raider.toUpperCase() + " RAID Pog");
