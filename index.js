@@ -176,6 +176,17 @@ inbuilt_commands = {
       };
     };
 
+    if (commands[0] === 'clear') {
+      if (userstate.mod || userstate.username === settings.CHANNEL) {
+        if (QUEUE_STATUS) {
+          QUEUE = [];
+          bot.say(settings.CHANNEL, "Queue cleared from all normies KannaNormiesOut ");
+        } else {
+          bot.say(settings.CHANNEL, "Cannot clear an already closed queue hisoDerpDerpingOutHisWindow ");
+        }
+      };
+    };
+
     if (commands[0] === 'list') {
       if (QUEUE[0]) {
         QUEUE.forEach(function (username, position) {
@@ -198,9 +209,11 @@ inbuilt_commands = {
 
     if (commands[0] === 'next') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
-        bot.say(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue UzukiGanbarimasu ")
         if (QUEUE[0]) {
+          bot.say(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue UzukiGanbarimasu ")
           bot.say(settings.CHANNEL, "Up after: @" + QUEUE[0])
+        } else {
+          bot.say(settings.CHANNEL, "No more people in the queue Jebaited")
         }
       }
     }
