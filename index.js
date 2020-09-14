@@ -81,15 +81,15 @@ inbuilt_commands = {
   "!addcom": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       if (commands[0][0] !== "!") {
-        bot.say(settings.CHANNEL, "The command name must start with a ! SHIREE");
+        bot.action(settings.CHANNEL, "The command name must start with a ! SHIREE");
         return;
       };
       var output = commands.splice(1).join(" ");
       if (output[0] === '!') {
-        bot.say(settings.CHANNEL, "The command output cannot start with a ! MahoHuh");
+        bot.action(settings.CHANNEL, "The command output cannot start with a ! MahoHuh");
       } else {
         dbCommands.set(commands[0], output);
-        bot.say(settings.CHANNEL, "The command " + commands[0] + " has been added. arisuHappy");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been added. arisuHappy");
       }
     }
   },
@@ -100,7 +100,7 @@ inbuilt_commands = {
         dbCommands.update(commands[0], function (currentComand) {
           return commands.splice(1).join(" ");
         });
-        bot.say(settings.CHANNEL, "The command " + commands[0] + " has been edited. HungryTag");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been edited. HungryTag");
       };
     };
   },
@@ -109,7 +109,7 @@ inbuilt_commands = {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       if (dbCommands.get(commands[0])) {
         dbCommands.rm(commands[0]);
-        bot.say(settings.CHANNEL, "The command " + commands[0] + " has been deleted. HungryTag");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been deleted. HungryTag");
       };
     };
   },
@@ -122,7 +122,7 @@ inbuilt_commands = {
             console.warn(err);
             return;
            } else {
-             bot.say(settings.CHANNEL, "Game has been updated to: " + commands.join(" ") + " KurisuFact");
+             bot.action(settings.CHANNEL, "Game has been updated to: " + commands.join(" ") + " KurisuFact");
            };
         });
       };
@@ -131,7 +131,7 @@ inbuilt_commands = {
         if (err) {
           console.warn(err);
         } else {
-          bot.say(settings.CHANNEL, "Game is currently set to: " + res.game + " KurisuFact");
+          bot.action(settings.CHANNEL, "Game is currently set to: " + res.game + " KurisuFact");
         };
       });
     };
@@ -145,7 +145,7 @@ inbuilt_commands = {
             console.warn(err);
             return;
           } else {
-            bot.say(settings.CHANNEL, "Title has been updated to: " + commands.join(" ") + " KurisuFact");
+            bot.action(settings.CHANNEL, "Title has been updated to: " + commands.join(" ") + " KurisuFact");
           };
         });
       };
@@ -155,7 +155,7 @@ inbuilt_commands = {
           console.warn(err);
           return;
         } else {
-          bot.say(settings.CHANNEL, "Title is currently set to: " + res.status + " KurisuFact");
+          bot.action(settings.CHANNEL, "Title is currently set to: " + res.status + " KurisuFact");
         };
       });
     };
@@ -165,14 +165,14 @@ inbuilt_commands = {
     if (commands[0] === 'open') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         QUEUE_STATUS = true;
-        bot.say(settings.CHANNEL, "Queue is now open ErynSippyn ")
+        bot.action(settings.CHANNEL, "Queue is now open ErynSippyn ")
       };
     };
 
     if (commands[0] === 'close') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         QUEUE_STATUS = false;
-        bot.say(settings.CHANNEL, "Queue is now closed FeelsBadMan 🥃 ")
+        bot.action(settings.CHANNEL, "Queue is now closed FeelsBadMan 🥃 ")
       };
     };
 
@@ -180,9 +180,9 @@ inbuilt_commands = {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         if (QUEUE_STATUS) {
           QUEUE = [];
-          bot.say(settings.CHANNEL, "Queue cleared from all normies KannaNormiesOut ");
+          bot.action(settings.CHANNEL, "Queue cleared from all normies KannaNormiesOut ");
         } else {
-          bot.say(settings.CHANNEL, "Cannot clear an already closed queue hisoDerpDerpingOutHisWindow ");
+          bot.action(settings.CHANNEL, "Cannot clear an already closed queue hisoDerpDerpingOutHisWindow ");
         }
       };
     };
@@ -190,10 +190,10 @@ inbuilt_commands = {
     if (commands[0] === 'list') {
       if (QUEUE[0]) {
         QUEUE.forEach(function (username, position) {
-          bot.say(settings.CHANNEL, (position + 1) + ": " + username);
+          bot.action(settings.CHANNEL, (position + 1) + ": " + username);
         });
       } else {
-        bot.say(settings.CHANNEL, "Queue is currently empty! D:");
+        bot.action(settings.CHANNEL, "Queue is currently empty! D:");
       }
     };
 
@@ -201,19 +201,19 @@ inbuilt_commands = {
       if (QUEUE.indexOf(userstate.username) > -1) {
         var position = QUEUE.indexOf(userstate.username)
         QUEUE.splice(position, 1)
-        bot.say(settings.CHANNEL, "@" + userstate['display-name'] + " You have left the queue Salutezume")
+        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have left the queue Salutezume")
       } else {
-        bot.say(settings.CHANNEL, "@" + userstate['display-name'] + " I do not think you are in the queue anyway hisoDerpDerpingOutHisWindow ")
+        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " I do not think you are in the queue anyway hisoDerpDerpingOutHisWindow ")
       }
     }
 
     if (commands[0] === 'next') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         if (QUEUE[0]) {
-          bot.say(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue UzukiGanbarimasu ")
-          bot.say(settings.CHANNEL, "Up after: @" + QUEUE[0])
+          bot.action(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue UzukiGanbarimasu ")
+          bot.action(settings.CHANNEL, "Up after: @" + QUEUE[0])
         } else {
-          bot.say(settings.CHANNEL, "No more people in the queue Jebaited")
+          bot.action(settings.CHANNEL, "No more people in the queue Jebaited")
         }
       }
     }
@@ -222,12 +222,12 @@ inbuilt_commands = {
       if (QUEUE_STATUS) {
         if (QUEUE.indexOf(userstate.username) === -1) {
           QUEUE.push(userstate.username)
-          bot.say(settings.CHANNEL, "@" + userstate['display-name'] + " You have joined the queue in position " + (QUEUE.indexOf(userstate.username) + 1) + " AYAYABASS")
+          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have joined the queue in position " + (QUEUE.indexOf(userstate.username) + 1) + " AYAYABASS")
         } else {
-          bot.say(settings.CHANNEL, "@" + userstate['display-name'] + " You have already joined the queue as position " + (QUEUE.indexOf(userstate.username) + 1) + " KannaPeer")
+          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have already joined the queue as position " + (QUEUE.indexOf(userstate.username) + 1) + " KannaPeer")
         }
       } else {
-        bot.say(settings.CHANNEL, "Queue is currently closed MingLow 🥃 ")
+        bot.action(settings.CHANNEL, "Queue is currently closed MingLow 🥃 ")
       }
     }
   },
@@ -239,9 +239,9 @@ inbuilt_commands = {
         return;
       } else {
         if (res.stream) {
-          bot.say(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at) + " OhISee");
+          bot.action(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at) + " OhISee");
         } else {
-          bot.say(settings.CHANNEL, "The stream is not live. cmonBruh");
+          bot.action(settings.CHANNEL, "The stream is not live. cmonBruh");
         };
       };
     });
@@ -252,7 +252,7 @@ inbuilt_commands = {
       var streamer = commands[0][0] === '@' ? commands[0].substr(1).toLowerCase() : commands[0].toLowerCase()
       var i;
       for (i = 0; i <= 5; i++) {
-        bot.say(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + streamer + " Pog");
+        bot.action(settings.CHANNEL, "Go give " + commands[0] + " a follow at twitch.tv/" + streamer + " Pog");
       };
     };
   },
@@ -273,7 +273,7 @@ inbuilt_commands = {
     dbCommands.forEach(function (key) {
       data.push(key);
     });
-    bot.say(settings.CHANNEL, data.join(" "));
+    bot.action(settings.CHANNEL, data.join(" "));
   }
 };
 
@@ -329,7 +329,7 @@ bot.on("chat", function (channel, userstate, message, self) {
     };
 
     if (dbCommands.get(commands[0])) {
-      bot.say(settings.CHANNEL, dbCommands.get(commands[0]));
+      bot.action(settings.CHANNEL, dbCommands.get(commands[0]));
     };
   }
 });
@@ -358,12 +358,12 @@ ws.on('message', function incoming(payload) {
       if (message_type === "stream-up") {
         if (LAST_STATUS === stream_status) return;
         LAST_STATUS = stream_status
-        bot.say(settings.CHANNEL, 'AsukaStare .... another shift modding this chat')
+        bot.action(settings.CHANNEL, 'AsukaStare .... another shift modding this chat')
       }
       if (message_type === 'stream-down') {
         if (LAST_STATUS === stream_status) return;
         LAST_STATUS = stream_status
-        bot.say(settings.CHANNEL, 'AsukaStare .... finally I can sleep')
+        bot.action(settings.CHANNEL, 'AsukaStare .... finally I can sleep')
       }
       if (message_type === "reward-redeemed") {
         if (message_parsed.data["redemption"]["reward"]["title"] === "Timeout") {
