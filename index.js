@@ -81,15 +81,15 @@ inbuilt_commands = {
   "!addcom": function (commands, userstate) {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       if (commands[0][0] !== "!") {
-        bot.action(settings.CHANNEL, "The command name must start with a ! SHIREE");
+        bot.action(settings.CHANNEL, "The command name must start with a !");
         return;
       };
       var output = commands.splice(1).join(" ");
       if (output[0] === '!') {
-        bot.action(settings.CHANNEL, "The command output cannot start with a ! MahoHuh");
+        bot.action(settings.CHANNEL, "The command output cannot start with a !");
       } else {
         dbCommands.set(commands[0], output);
-        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been added. arisuHappy");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been added.");
       }
     }
   },
@@ -100,7 +100,7 @@ inbuilt_commands = {
         dbCommands.update(commands[0], function (currentComand) {
           return commands.splice(1).join(" ");
         });
-        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been edited. HungryTag");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been edited.");
       };
     };
   },
@@ -109,7 +109,7 @@ inbuilt_commands = {
     if (userstate.mod || userstate.username === settings.CHANNEL) {
       if (dbCommands.get(commands[0])) {
         dbCommands.rm(commands[0]);
-        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been deleted. HungryTag");
+        bot.action(settings.CHANNEL, "The command " + commands[0] + " has been deleted.");
       };
     };
   },
@@ -122,7 +122,7 @@ inbuilt_commands = {
             console.warn(err);
             return;
            } else {
-             bot.action(settings.CHANNEL, "Game has been updated to: " + commands.join(" ") + " KurisuFact");
+             bot.action(settings.CHANNEL, "Game has been updated to: " + commands.join(" "));
            };
         });
       };
@@ -131,7 +131,7 @@ inbuilt_commands = {
         if (err) {
           console.warn(err);
         } else {
-          bot.action(settings.CHANNEL, "Game is currently set to: " + res.game + " KurisuFact");
+          bot.action(settings.CHANNEL, "Game is currently set to: " + res.game);
         };
       });
     };
@@ -145,7 +145,7 @@ inbuilt_commands = {
             console.warn(err);
             return;
           } else {
-            bot.action(settings.CHANNEL, "Title has been updated to: " + commands.join(" ") + " KurisuFact");
+            bot.action(settings.CHANNEL, "Title has been updated to: " + commands.join(" "));
           };
         });
       };
@@ -155,7 +155,7 @@ inbuilt_commands = {
           console.warn(err);
           return;
         } else {
-          bot.action(settings.CHANNEL, "Title is currently set to: " + res.status + " KurisuFact");
+          bot.action(settings.CHANNEL, "Title is currently set to: " + res.status);
         };
       });
     };
@@ -165,14 +165,14 @@ inbuilt_commands = {
     if (commands[0] === 'open') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         QUEUE_STATUS = true;
-        bot.action(settings.CHANNEL, "Queue is now open ErynSippyn ")
+        bot.action(settings.CHANNEL, "Queue is now open. ")
       };
     };
 
     if (commands[0] === 'close') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         QUEUE_STATUS = false;
-        bot.action(settings.CHANNEL, "Queue is now closed FeelsBadMan 🥃 ")
+        bot.action(settings.CHANNEL, "Queue is now closed.")
       };
     };
 
@@ -180,9 +180,9 @@ inbuilt_commands = {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         if (QUEUE_STATUS) {
           QUEUE = [];
-          bot.action(settings.CHANNEL, "Queue cleared from all normies KannaNormiesOut ");
+          bot.action(settings.CHANNEL, "Queue has been cleared.");
         } else {
-          bot.action(settings.CHANNEL, "Cannot clear an already closed queue hisoDerpDerpingOutHisWindow ");
+          bot.action(settings.CHANNEL, "Cannot clear an already closed queue. ");
         }
       };
     };
@@ -193,7 +193,7 @@ inbuilt_commands = {
           bot.action(settings.CHANNEL, (position + 1) + ": " + username);
         });
       } else {
-        bot.action(settings.CHANNEL, "Queue is currently empty! D:");
+        bot.action(settings.CHANNEL, "Queue is currently empty!");
       }
     };
 
@@ -201,19 +201,19 @@ inbuilt_commands = {
       if (QUEUE.indexOf(userstate.username) > -1) {
         var position = QUEUE.indexOf(userstate.username)
         QUEUE.splice(position, 1)
-        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have left the queue Salutezume")
+        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have left the queue.")
       } else {
-        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " I do not think you are in the queue anyway hisoDerpDerpingOutHisWindow ")
+        bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " I do not think you are in the queue.")
       }
     }
 
     if (commands[0] === 'next') {
       if (userstate.mod || userstate.username === settings.CHANNEL) {
         if (QUEUE[0]) {
-          bot.action(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue UzukiGanbarimasu ")
+          bot.action(settings.CHANNEL, "@" + QUEUE.shift() + " is the next one in the queue.")
           bot.action(settings.CHANNEL, "Up after: @" + QUEUE[0])
         } else {
-          bot.action(settings.CHANNEL, "No more people in the queue Jebaited")
+          bot.action(settings.CHANNEL, "No more people in the queue.")
         }
       }
     }
@@ -222,12 +222,12 @@ inbuilt_commands = {
       if (QUEUE_STATUS) {
         if (QUEUE.indexOf(userstate.username) === -1) {
           QUEUE.push(userstate.username)
-          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have joined the queue in position " + (QUEUE.indexOf(userstate.username) + 1) + " AYAYABASS")
+          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have joined the queue in position " + (QUEUE.indexOf(userstate.username) + 1))
         } else {
-          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have already joined the queue as position " + (QUEUE.indexOf(userstate.username) + 1) + " KannaPeer")
+          bot.action(settings.CHANNEL, "@" + userstate['display-name'] + " You have already joined the queue as position " + (QUEUE.indexOf(userstate.username) + 1))
         }
       } else {
-        bot.action(settings.CHANNEL, "Queue is currently closed MingLow 🥃 ")
+        bot.action(settings.CHANNEL, "Queue is currently closed.")
       }
     }
   },
@@ -239,9 +239,9 @@ inbuilt_commands = {
         return;
       } else {
         if (res.stream) {
-          bot.action(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at) + " OhISee");
+          bot.action(settings.CHANNEL, "The stream has been live for: " + uptime(res.stream.created_at));
         } else {
-          bot.action(settings.CHANNEL, "The stream is not live. cmonBruh");
+          bot.action(settings.CHANNEL, "The stream is not live.");
         };
       };
     });
@@ -286,7 +286,7 @@ sl.on('donation', function (data) {
 });
 
 owner.on("hosted", function (channel, username, viewers, autohost) {
-  if (!autohost) bot.action(settings.CHANNEL, "Thank you @"  + username + " for the host! Daijoubu ");
+  if (!autohost) bot.action(settings.CHANNEL, "Thank you @"  + username + " for the host! cirPomping");
 });
 
 owner.on("raided", function (channel, raider, viewers, userstate) {
@@ -298,11 +298,11 @@ owner.on("raided", function (channel, raider, viewers, userstate) {
 });
 
 bot.on("cheer", function (channel, userstate, message) {
-  bot.action(settings.CHANNEL, "Thank you " + userstate.username + " for the " + userstate.bits + " bits!!! IAStare" );
+  bot.action(settings.CHANNEL, "Thank you " + userstate.username + " for the " + userstate.bits + " bits!!! (ditto)" );
 });
 
 bot.on("subscription", function (channel, username) {
-    bot.action(settings.CHANNEL, "Thank you "  + username + " for subscribing! PaPaTuTuWaWa  <3 <3");
+    bot.action(settings.CHANNEL, "Thank you "  + username + " for subscribing! FeelsAmazingMan <3 <3");
 });
 
 bot.on("resub", function (channel, username, months, message, userstate, methods) {
